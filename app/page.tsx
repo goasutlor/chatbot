@@ -15,7 +15,7 @@ export default function Home() {
 
   // Load user preferences on login
   useEffect(() => {
-    if (session?.user?.id) {
+    if (session?.user?.email) {
       loadUserPreferences()
     }
   }, [session])
@@ -40,7 +40,7 @@ export default function Home() {
   }
 
   const saveUserPreferences = async () => {
-    if (!session?.user?.id) return
+    if (!session?.user?.email) return
 
     try {
       await fetch('/api/user/preferences', {
@@ -99,7 +99,7 @@ export default function Home() {
 
   // Save preferences when they change
   useEffect(() => {
-    if (session?.user?.id) {
+    if (session?.user?.email) {
       saveUserPreferences()
     }
   }, [mode, selectedLLM, apiKeys, session])
