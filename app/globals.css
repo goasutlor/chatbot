@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Text:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-primary-200;
+  }
+  body {
+    @apply bg-white text-primary-900;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/80 backdrop-blur-sm border border-primary-200/50;
+  }
+  
+  .chat-message {
+    @apply p-4 rounded-2xl max-w-3xl mx-auto shadow-sm;
+  }
+  
+  .chat-message.user {
+    @apply bg-accent-50 border border-accent-200 ml-auto;
+  }
+  
+  .chat-message.assistant {
+    @apply bg-primary-50 border border-primary-200 mr-auto;
+  }
+  
+  .chat-input {
+    @apply w-full px-4 py-3 border border-primary-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-500/20 focus:border-accent-500 resize-none transition-all duration-200;
+  }
+  
+  .btn-primary {
+    @apply bg-accent-500 hover:bg-accent-600 text-white font-medium py-2.5 px-6 rounded-xl transition-all duration-200 shadow-sm hover:shadow-md;
+  }
+  
+  .btn-secondary {
+    @apply bg-primary-100 hover:bg-primary-200 text-primary-700 font-medium py-2.5 px-6 rounded-xl transition-all duration-200;
+  }
+  
+  .btn-ghost {
+    @apply text-primary-600 hover:text-primary-700 hover:bg-primary-50 font-medium py-2 px-4 rounded-lg transition-all duration-200;
+  }
+  
+  .card {
+    @apply bg-white rounded-2xl border border-primary-200 shadow-sm;
+  }
+  
+  .input-field {
+    @apply w-full px-4 py-3 border border-primary-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-500/20 focus:border-accent-500 transition-all duration-200;
+  }
+  
+  .chat-textarea {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+}
