@@ -101,14 +101,14 @@ export class LLMService {
       throw new Error('Anthropic API key not provided')
     }
 
-    const message_response = await client.messages.create({
+    const message_response = await client.completions.create({
       model: "claude-3-5-sonnet-20241022",
-      max_tokens: 1000,
-      messages: [{ role: "user", content: message }],
+      max_tokens_to_sample: 1000,
+      prompt: message,
     })
 
     return {
-      content: message_response.content[0].type === 'text' ? message_response.content[0].text : '',
+      content: message_response.completion || '',
       model: message_response.model,
       provider: 'claude'
     }
@@ -223,26 +223,21 @@ export class LLMService {
 
   private async generateClaudeStreamResponse(message: string, userApiKey?: string): Promise<ReadableStream<Uint8Array>> {
     const client = userApiKey ? new Anthropic({ apiKey: userApiKey }) : this.claude
-    
     if (!client) {
       throw new Error('Anthropic API key not provided')
     }
-
-    const stream = await client.messages.create({
+    const stream = await client.completions.create({
       model: "claude-3-5-sonnet-20241022",
-      max_tokens: 1000,
-      messages: [{ role: "user", content: message }],
+      prompt: message,
+      max_tokens_to_sample: 1000,
       stream: true,
     })
-
     const encoder = new TextEncoder()
-    
     return new ReadableStream({
       async start(controller) {
         for await (const chunk of stream) {
-          if (chunk.type === 'content_block_delta' && chunk.delta.type === 'text_delta') {
-            controller.enqueue(encoder.encode(`data: ${JSON.stringify({ content: chunk.delta.text })}\n\n`))
-          }
+          // The chunk is a string, so just enqueue it
+          controller.enqueue(encoder.encode(JSON.stringify(chunk)))
         }
         controller.close()
       }
