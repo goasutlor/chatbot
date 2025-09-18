@@ -224,7 +224,7 @@ This is a simulated response from your Local RAG system. In a real implementatio
               className="flex items-center space-x-3 px-4 py-2 bg-primary-50 hover:bg-primary-100 rounded-xl transition-all duration-200 min-w-[180px]"
             >
               <div className="flex items-center space-x-2">
-                <currentModel.icon className="w-4 h-4 text-primary-600" />
+                {currentModel?.icon && <currentModel.icon className="w-4 h-4 text-primary-600" />}
                 <div className="text-left">
                   <div className="text-sm font-medium text-primary-900">{currentModel?.name}</div>
                   <div className="text-xs text-primary-500">{currentModel?.description}</div>
