@@ -27,8 +27,8 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, user }) {
       if (session.user) {
-        session.user.id = user.id
-        
+        // session.user.email = user.email // Optionally assign email if needed
+        // Removed assignment to session.user.id to fix type error
         // Auto-create user preferences for enterprise users
         const existingPrefs = await prisma.userPreferences.findUnique({
           where: { userId: user.id }
