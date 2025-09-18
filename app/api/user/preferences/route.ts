@@ -7,12 +7,12 @@ export async function GET() {
   try {
     const session = await getServerSession(authOptions)
     
-    if (!session?.user?.id) {
+    if (!session?.user?.email) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     const preferences = await prisma.userPreferences.findUnique({
-      where: { userId: session.user.id }
+      where: { userId: session.user.email }
     })
 
     return NextResponse.json(preferences || {
@@ -33,14 +33,14 @@ export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     
-    if (!session?.user?.id) {
+    if (!session?.user?.email) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     const { mode, selectedLLM, openaiApiKey, geminiApiKey, claudeApiKey, perplexityApiKey } = await request.json()
 
     const preferences = await prisma.userPreferences.upsert({
-      where: { userId: session.user.id },
+      where: { userId: session.user.email },
       update: {
         mode,
         selectedLLM,
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
         updatedAt: new Date()
       },
       create: {
-        userId: session.user.id,
+        userId: session.user.email,
         mode,
         selectedLLM,
         openaiApiKey,
