@@ -123,6 +123,7 @@ export default function Home() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <span className="text-2xl font-semibold tracking-tight font-sans text-gray-400">KO Chatbot</span>
+              <img src="/arrow-logo.svg" alt="Logo" className="ml-2 w-8 h-8" />
             </div>
             <LoginButton />
           </div>
@@ -172,6 +173,7 @@ export default function Home() {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <span className="text-2xl font-semibold tracking-tight font-sans text-gray-400">KO Chatbot</span>
+            <img src="/arrow-logo.svg" alt="Logo" className="ml-2 w-8 h-8" />
           </div>
           <LoginButton />
         </div>
